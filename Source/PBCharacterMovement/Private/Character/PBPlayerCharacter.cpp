@@ -339,11 +339,11 @@ void APBPlayerCharacter::RecalculateBaseEyeHeight()
 {
 	const ACharacter* DefaultCharacter = GetClass()->GetDefaultObject<ACharacter>();
 	const float OldUnscaledHalfHeight = DefaultCharacter->GetCapsuleComponent()->GetUnscaledCapsuleHalfHeight();
-	const float CrouchedHalfHeight = GetCharacterMovement()->CrouchedHalfHeight;
-	const float FullCrouchDiff = OldUnscaledHalfHeight - CrouchedHalfHeight;
+	const float crouchHalfHeight = GetCharacterMovement()->GetCrouchedHalfHeight();
+	const float FullCrouchDiff = OldUnscaledHalfHeight - crouchHalfHeight;
 	const UCapsuleComponent* CharacterCapsule = GetCapsuleComponent();
 	const float CurrentUnscaledHalfHeight = CharacterCapsule->GetUnscaledCapsuleHalfHeight();
-	const float CurrentAlpha = 1.0f - (CurrentUnscaledHalfHeight - CrouchedHalfHeight) / FullCrouchDiff;
+	const float CurrentAlpha = 1.0f - (CurrentUnscaledHalfHeight - crouchHalfHeight) / FullCrouchDiff;
 	BaseEyeHeight = FMath::Lerp(DefaultCharacter->BaseEyeHeight, CrouchedEyeHeight, SimpleSpline(CurrentAlpha));
 }
 
